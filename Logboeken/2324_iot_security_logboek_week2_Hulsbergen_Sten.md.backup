@@ -22,7 +22,7 @@ Het benadrukt het belang van tegenmaatregelen om geïdentificeerde risico's te v
 
 Kortom, het boek biedt inzichten in het proces van dreigingsmodellering, risicobeoordeling en het ontwikkelen van tegenmaatregelen om de beveiliging van voertuigsystemen te verbeteren.
 
-`Deze samenvatting komt van ChatGPT`
+`Deze samenvatting komt van ChatGPT.`
 
 ### 2. Nation-state attacks
 
@@ -38,7 +38,7 @@ Het boek bespreekt ook de opkomst van Noord-Korea als speler in het cyberdomein.
 
 Kortom, het boek biedt inzicht in de complexiteit en impact van nation-state cyberaanvallen, waarbij de motieven, methoden en gevolgen van verschillende aanvallen worden belicht.
 
-`Deze samenvatting komt van ChatGPT`
+`Deze samenvatting komt van ChatGPT.`
 
 
 ## Toekomstige interesses nieuwe kennis
