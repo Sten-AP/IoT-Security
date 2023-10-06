@@ -8,7 +8,7 @@ Tijdens de les hebben we herhaald wat we hadden gelezen in het handboek Cyberbos
 
 ## Handboek Cyberboswachters
 
-
+In het volgende deel van het boek word symmetrische encryptie, met een focus op het genereren van een keystream via het PRGA-algoritme benadrukt. Ook de verschillende encryptiemodi, waaronder ECB, CBC en CTR, met de nadruk op hun veiligheidskenmerken. Vervolgens komen block ciphers, zoals DES, 3DES, en de geavanceerde versleutelingsstandaard (AES) voor. Het belang van veilige praktijken, zoals het gebruik van Initialisatie Vectoren (IV), wordt benadrukt om potentiële kwetsbaarheden te vermijden. De uitleg bevat ook de werking van het PRGA-algoritme en dat laat zien dat cryptografie complex is, maar toch begrijpbaar.
 
 ## Bijkomende informatie
 
@@ -43,7 +43,7 @@ Kortom, het boek biedt inzicht in de complexiteit en impact van nation-state cyb
 
 ## Toekomstige interesses nieuwe kennis
 
-
+Wat ik merk dat deze nieuwe kennis mij bijbrengt, is dat cryptografie steeds moeilijker en moeilijker wordt omdat computer krachtiger en krachtiger worden. Dit wil zeggen dat later de beveiliging steeds geupdate moet worden om te voorkomen dat een worm of het een en ander binnen in het systeem komt.
 
 ## Bronnen
 
