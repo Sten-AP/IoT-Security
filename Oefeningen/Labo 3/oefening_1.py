@@ -1,9 +1,6 @@
 import random
 
-alfabet = list(
-    "abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+1234567890-= |[]\\:\";'<>?,./~`ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-random.shuffle(alfabet)
-ALFABET = "".join(alfabet)
+ALFABET = "abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+1234567890-= |[]\\:\";'<>?,./~`ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 
 def encrypt_caesar(bericht, sleutel):

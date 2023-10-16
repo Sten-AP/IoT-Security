@@ -16,7 +16,6 @@ def decrypt_transpositie(encrypted_bericht, sleutel):
 
     for _ in range(sleutel):
         for j in range(row):
-            print(msg_lst[msg_indx])
             dec_cipher[j][_] = msg_lst[msg_indx]
             msg_indx += 1
 
