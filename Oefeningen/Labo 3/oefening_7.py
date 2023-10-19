@@ -1,13 +1,10 @@
 from oefening_3 import encrypt_transpositie
 from oefening_4 import decrypt_transpositie
 
-bericht = "Deze zin is zometeen niet te lezen"
-sleutel = 5
+bericht = "Deze zin is zometeen te lezen"
+sleutel = 23
 
-nederlandse_woorden_file = open("Labo 3\woordenlijst.txt", "r")
-nederlandse_woorden = []
-for woord in nederlandse_woorden_file:
-    nederlandse_woorden.append(woord)
+nederlandse_woorden_file = open("Labo 3\woordenlijst.txt", "r").readlines()
 
 
 def brute_force_transpositie(encrypted_bericht, aantal_sleutels):
@@ -15,14 +12,10 @@ def brute_force_transpositie(encrypted_bericht, aantal_sleutels):
         decrypted_woord = decrypt_transpositie(encrypted_bericht, i)
         print(f"Sleutel: {i}\tBericht: {decrypted_woord}")
         woorden = decrypted_woord.split(" ")
-        print(woorden)
-        for nederlands_woord in nederlandse_woorden:
-            if nederlands_woord in woorden:
-                print(nederlands_woord in woorden)
-
-    return decrypted_woord
+        for nederlands_woord in nederlandse_woorden_file:
+            if nederlands_woord[:-1] in woorden and len(nederlands_woord[:-1]) > 3:
+                return decrypted_woord
 
 
 encrypted_bericht = encrypt_transpositie(bericht, sleutel)
-forced_decrypted_bericht = brute_force_transpositie(encrypted_bericht, 10)
-print(forced_decrypted_bericht)
+forced_decrypted_bericht = brute_force_transpositie(encrypted_bericht, 30)
