@@ -4,10 +4,9 @@ from oefening_4 import decrypt_transpositie
 bericht = "Deze zin is zometeen te lezen"
 sleutel = 23
 
-nederlandse_woorden_file = open("Labo 3\woordenlijst.txt", "r").readlines()
-
 
 def brute_force_transpositie(encrypted_bericht, aantal_sleutels):
+    nederlandse_woorden_file = open("woordenlijst.txt", "r").readlines()
     for i in range(1, aantal_sleutels + 1):
         decrypted_woord = decrypt_transpositie(encrypted_bericht, i)
         print(f"Sleutel: {i}\tBericht: {decrypted_woord}")
