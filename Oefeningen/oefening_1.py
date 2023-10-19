@@ -1,7 +1,4 @@
-import random
-
-ALFABET = "abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+1234567890-= |[]\\:\";'<>?,./~`ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
+ALFABET = "abcdefghijklmnopqrstuvwxyz"
 
 def encrypt_caesar(bericht, sleutel):
     encrypted_bericht = ""
@@ -9,7 +6,6 @@ def encrypt_caesar(bericht, sleutel):
         encrypted_bericht += ALFABET[(ALFABET.find(let) +
                                       sleutel) % len(ALFABET)]
     return encrypted_bericht
-
 
 def decrypt_caesar(encrypted_bericht, sleutel):
     decrypted_bericht = ""

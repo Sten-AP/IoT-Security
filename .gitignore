@@ -1,6 +1,5 @@
-*.zip
-**/__pycache__/
-venv
+Oefeningen/*.zip
+Oefeningen/__pycache__/
 
 # Created by https://www.toptal.com/developers/gitignore/api/flask,nextjs
 # Edit at https://www.toptal.com/developers/gitignore?templates=flask,nextjs
