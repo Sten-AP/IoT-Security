@@ -1,6 +1,12 @@
+from oefening_12 import encrypt_substitutie, decrypt_substitutie, substitutiesleutel
+
+ALFABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz"
+SUBSTITUTIE = "QWERTYUIOPASDFGHJKLZXCVBNM qwertyuiopasdfghjklzxcvbnm"
+
 def decrypt_substitution_hack(encrypted_bericht):
-    common_letters = "ETAOINSHRDLCUMWFGYPBVKJXQZ"
-    
+    # common_letters = "ETAOINSHRDLCUMWFGYPBVKJXQZ etaoinshrdlcumwfgyobvkjxqz"
+    common_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz"
+
     substitution_key = {}
 
     encrypted_letters = [char for char in encrypted_bericht if char.isalpha()]
@@ -10,16 +16,17 @@ def decrypt_substitution_hack(encrypted_bericht):
     for i in range(min(len(common_letters), len(sorted_encrypted_letters))):
         substitution_key[sorted_encrypted_letters[i]] = common_letters[i]
     
-    decrypted_bericht = ""
-    for char in encrypted_bericht:
-        if char in substitution_key:
-            decrypted_bericht += substitution_key[char]
-        else:
-            decrypted_bericht += char
-    
-    return decrypted_bericht
+    return decrypt_substitutie(encrypted_bericht, substitution_key)
 
-encrypted_bericht = "YFJ YMJKJ WJYFJ YFYJ KJYFJ E"
+
+sleutel = substitutiesleutel(ALFABET, SUBSTITUTIE)
+bericht = "deze zin wordt versleuteld"
+
+encrypted_bericht = encrypt_substitutie(bericht, sleutel)
+print(encrypted_bericht)
+
+decrypted_bericht = decrypt_substitutie(encrypted_bericht, sleutel)
+print(decrypted_bericht)
 
 decrypted_bericht = decrypt_substitution_hack(encrypted_bericht)
 print(decrypted_bericht)
