@@ -11,4 +11,4 @@ def handle_packet(packet):
 interface = "wlp110s0"
 
 # Start het snifferen
-sniff(iface=interface)
+sniff(iface=interface, prn=handle_packet)
