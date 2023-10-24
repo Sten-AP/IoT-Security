@@ -1,6 +1,7 @@
 Oefeningen/*.zip
 Oefeningen/__pycache__/
 Oefeningen/_venv/
+Oefeningen/data/
 
 # Created by https://www.toptal.com/developers/gitignore/api/flask,nextjs
 # Edit at https://www.toptal.com/developers/gitignore?templates=flask,nextjs
