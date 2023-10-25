@@ -1,14 +1,19 @@
-from subprocess import PIPE, Popen
+from scapy.all import sniff
+import os
 
-interface = "wlp110s0"
+interface_mon = "wlp110s0"
 
-stdout = Popen('iwlist ' + interface + ' channel', shell=True, stdout=PIPE).stdout
-output = str(stdout.read()).replace(' ', '').split("\\n")
-output.pop(0)
-for i in range(3):
-    output.pop(len(output)-1)
+os.system(f"sudo -S airmon-ng check kill")
+os.system(f"sudo airmon-ng start {interface_mon} ")
+os.system(f"sudo iwconfig")
 
-usable_channels = []
-for out in output:
-	split = out.split(":")
-	usable_channels.append({int(split[0][7:]): float(split[1][:-3])})
+# Capture Wi-Fi packets with a filter for beacon frames
+packets = sniff(iface=interface_mon, filter="type mgt subtype beacon", count=10)
+# Extract the MAC address and signal strength (RSSI) of each access point
+access_points = []
+for pkt in packets:
+    mac = pkt.addr2
+    rssi = -(256-ord(pkt.notdecoded[-2:-1]))
+    access_points.append({'mac': mac, 'rssi': rssi})
+
+print(access_points)

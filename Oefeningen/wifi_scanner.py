@@ -1,19 +1,16 @@
-from scapy.all import sniff, AsyncSniffer, Dot11
-from scapy.layers import dot11
+from scapy.all import AsyncSniffer, Dot11Beacon, Dot11
 from threading import Thread
-from subprocess import PIPE, Popen
-
-import shlex
+from subprocess import PIPE, Popen, run
 import time
+from datetime import datetime
 import threading
 import os
 
 BASE_DIR = os.path.dirname(__file__)
 DATA_DIR = BASE_DIR + "/data"
 
-locky = threading.Lock()
-channels = 233
-interface = "wlp110s0"
+INTERFACE = "wlp110s0"
+INTERFACE_MON = f"{INTERFACE}mon"
 
 
 if not os.path.exists(DATA_DIR):
@@ -22,8 +19,7 @@ if not os.path.exists(DATA_DIR):
     os.mkdir(f"{DATA_DIR}/5GHz")
     os.mkdir(f"{DATA_DIR}/6GHz")
 
-
-stdout = Popen('iwlist ' + interface + ' channel', shell=True, stdout=PIPE).stdout
+stdout = Popen(f'iwlist {INTERFACE} channel', shell=True, stdout=PIPE).stdout
 output = str(stdout.read()).replace(' ', '').split("\\n")
 output.pop(0)
 for i in range(3):
@@ -34,25 +30,37 @@ for out in output:
 	split = out.split(":")
 	usable_channels.append([int(split[0][7:]), float(split[1][:-3])])
 
+
+
 def handle_packet(packet):
-    global file
-    if packet.haslayer(Dot11):
-        print(packet)
-        file.write(str(packet)+"\n")
+    # global file
+    if packet.haslayer(Dot11Beacon):
+        print(packet.addr3)
+        file.write(f"[>]{datetime.now().strftime('%H-%M-%S')}: {packet[Dot11Beacon]}\n")
+    # if packet.haslayer(Dot11) and packet[Dot11].type == 0 and packet[Dot11].subtype == 8:
+        # print('[>]AP',packet[Dot11].addr2,'SSID',packet[Dot11].info)
+
     # bssid = packet.addr2
     # ssid = packet.info.decode()
     # print(f"SSID: {ssid}, BSSID: {bssid}")
 
-def Change_Freq_channel(channel):
+def change_channel(channel):
     print(f'Channel: {channel}')
-    command = f'iwconfig {interface} channel {channel}'
-    command = shlex.split(command)
-    Popen(command, shell=False)
+    Popen(f'iwconfig {INTERFACE_MON} channel {channel}', shell=True)
 
+def network_to_monitor():
+    run("sudo airmon-ng check kill", shell=True)
+    run(f"sudo airmon-ng start {INTERFACE}", shell=True)
 
-netwerk_sniffer = AsyncSniffer(iface=interface, prn=handle_packet)
+def network_to_managed():
+    run(f"sudo airmon-ng stop {INTERFACE_MON}", shell=True)
+    run("sudo systemctl start NetworkManager", shell=True)
 
-try:
+netwerk_sniffer = AsyncSniffer(iface=INTERFACE_MON, prn=handle_packet)
+locky = threading.Lock()
+    
+def main():
+        network_to_monitor()
     # while True:
         for channel in usable_channels:
             if channel[1] <= 2.472:
@@ -65,18 +73,22 @@ try:
             global file
             file = open(DATA_DIR + f"/{dir}/channel_{channel[0]}.txt", "w")
             
-            t = Thread(target=Change_Freq_channel, args=(channel[0],))
+            t = Thread(target=change_channel(channel[0]))
             t.daemon = True
             
             netwerk_sniffer.start()
             locky.acquire()
             t.start
-            time.sleep(2)
+            time.sleep(5)
             locky.release()
-            netwerk_sniffer.stop()
-                
-
+        network_to_managed()
             
-except KeyboardInterrupt:
-    locky.release()
-    netwerk_sniffer.stop()
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        netwerk_sniffer.stop()
+        network_to_managed()
+        
