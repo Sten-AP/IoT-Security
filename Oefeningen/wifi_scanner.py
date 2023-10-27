@@ -35,7 +35,7 @@ for out in output:
 def handle_packet(packet):
     # global file
     if packet.haslayer(Dot11Beacon):
-        print(packet.addr3)
+        print(packet)
         file.write(f"[>]{datetime.now().strftime('%H-%M-%S')}: {packet[Dot11Beacon]}\n")
     # if packet.haslayer(Dot11) and packet[Dot11].type == 0 and packet[Dot11].subtype == 8:
         # print('[>]AP',packet[Dot11].addr2,'SSID',packet[Dot11].info)
