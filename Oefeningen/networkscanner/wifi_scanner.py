@@ -61,7 +61,7 @@ def main():
         antwoord = input("(q)uit, (s)cannen: ")
         
         if antwoord.lower() == "s":
-            seconden = input("Hoeveel seconden scannen per kanaal: ")
+            seconden = input("Aantal seconden scannen per kanaal: ")
             
             global channel_nr, dir
             for channel in usable_channels:
