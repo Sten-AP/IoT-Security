@@ -1,0 +1,22 @@
+[
+    {
+        "host": "127.0.0.1",
+        "name": "localhost",
+        "state": "up",
+        "protocols": {
+            "tcp": {
+                "135": "open",
+                "137": "filtered",
+                "445": "open",
+                "2343": "open",
+                "2869": "open",
+                "3580": "open",
+                "4800": "open",
+                "4801": "open",
+                "5000": "open",
+                "5040": "open",
+                "5357": "open"
+            }
+        }
+    }
+]
