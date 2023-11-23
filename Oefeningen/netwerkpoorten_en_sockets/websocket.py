@@ -1,18 +1,20 @@
-from socket import socket, AF_INET, SOCK_STREAM
+import socket
 
-host = '0.0.0.0'
-port = 8001
+host = "localhost"
+port = 8000
 
-with socket(AF_INET, SOCK_STREAM) as s:
-    s.bind((host, port))
-    s.listen()
-    print(f"Server luistert op {host}:{port}")
-    
-    conn, addr = s.accept()
-    with conn:
-        print(f"Verbonden met {addr}")
-        while True:
-            data = conn.recv(1024)
-            if not data:
-                break
-            conn.sendall(data)
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect((host, port))
+
+request = "GET / HTTP/1.1\r\nHost: localhost:8000\r\n\r\n"
+client_socket.sendall(request.encode())
+
+response = b""
+while True:
+    data = client_socket.recv(1024)
+    if not data:
+        break
+    response += data
+
+print(response.decode())
+client_socket.close()

@@ -1,19 +1,15 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import SimpleHTTPRequestHandler
+import socketserver
 import os
 
+
 BASE_DIR = os.path.dirname(__file__)
+PORT = 8000
 
-class WebRequestHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header("Content-Type", "text/html")
-        self.end_headers()
-        with open(f'{BASE_DIR}/index.html', 'r') as file:
-            self.wfile.write(file.read().encode())
+os.chdir(BASE_DIR)
 
-    def do_POST(self):
-        self.do_GET()
+handler = SimpleHTTPRequestHandler
 
-if __name__ == "__main__":
-    server = HTTPServer(("0.0.0.0", 8000), WebRequestHandler)
-    server.serve_forever()
+with socketserver.TCPServer(("localhost", PORT), handler) as httpd:
+    print("Server open op poort: ", PORT)
+    httpd.serve_forever()
