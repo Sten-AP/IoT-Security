@@ -1,4 +1,5 @@
 import socket
+from getpass import getpass
 
 server_address = ("localhost", 9000)
 
@@ -13,7 +14,7 @@ except Exception as e:
 welcome_message = client_socket.recv(1024).decode()
 print(welcome_message)
 
-password = input("Voer het wachtwoord in: ")
+password = getpass()
 
 client_socket.sendall(password.encode())
 
